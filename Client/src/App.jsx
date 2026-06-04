@@ -125,6 +125,7 @@
 
 import Navbar from "./components/Navbar"
 import MoodSelector from "./components/MoodSelector"
+import TrendingFits from "./components/TrendingFits"
 import HeroSection from "./sections/HeroSection"
 
 const App = () => {
@@ -134,7 +135,7 @@ const App = () => {
       <Navbar />
       <HeroSection />
       <MoodSelector />
-
+      <TrendingFits />
     </div>
   )
 }

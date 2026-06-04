@@ -1,15 +1,17 @@
+import { Link } from "react-router-dom";
+
 const HeroSection = () => {
   return (
     <section className="relative overflow-hidden w-full min-h-[90vh] flex items-center justify-center gap-32 px-10">
 
       {/* LEFT CONTENT */}
-     <div className="max-w-[650px]">
+      <div className="max-w-[650px] relative z-10">
 
         <p className="text-purple-400 uppercase tracking-[8px] mb-6">
           Future Of Fashion
         </p>
 
-          <h1 className="text-[90px] font-black leading-[0.9]">
+        <h1 className="text-[90px] font-black leading-[0.9]">
           WEAR
           <br />
           YOUR
@@ -28,20 +30,22 @@ const HeroSection = () => {
         <div className="flex gap-5 mt-10">
 
           <button className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 font-semibold hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(168,85,247,0.5)]">
-          Explore Now
-
+            Explore Now
           </button>
 
-          <button className="px-8 py-4 rounded-full border border-white/20 hover:border-purple-500 hover:text-purple-400 transition-all duration-300">
+          <Link
+            to="/ai-stylist"
+            className="px-8 py-4 rounded-full border border-white/20 hover:border-purple-500 hover:text-purple-400 transition-all duration-300 inline-flex items-center justify-center"
+          >
             AI Stylist
-          </button>
+          </Link>
 
         </div>
 
       </div>
 
       {/* RIGHT SIDE CARD */}
-     <div className="hidden lg:flex">
+      <div className="hidden lg:flex relative z-10">
 
         <div className="w-[380px] h-[550px] rounded-[40px] bg-white/5 border border-white/10 backdrop-blur-xl p-5 shadow-2xl shadow-purple-500/20">
 
@@ -70,13 +74,14 @@ const HeroSection = () => {
         </div>
 
       </div>
-      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-purple-600/20 blur-[180px] rounded-full"></div>
 
-<div className="absolute right-0 top-0 w-[400px] h-[400px] bg-pink-600/10 blur-[180px] rounded-full"></div>
+      {/* Background Glow */}
+      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-purple-600/20 blur-[180px] rounded-full pointer-events-none"></div>
+
+      <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-pink-600/10 blur-[180px] rounded-full pointer-events-none"></div>
 
     </section>
+  );
+};
 
-  )
-}
-
-export default HeroSection
+export default HeroSection;

@@ -121,23 +121,18 @@
 
 // export default App
 
+import { Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
+import AIStylistPage from "./pages/AIStylistPage";
 
-import Navbar from "./components/Navbar"
-import MoodSelector from "./components/MoodSelector"
-import TrendingFits from "./components/TrendingFits"
-import HeroSection from "./sections/HeroSection"
-
-const App = () => {
+function App() {
   return (
-    <div className="min-h-screen bg-[#07070A] text-white">
-
-      <Navbar />
-      <HeroSection />
-      <MoodSelector />
-      <TrendingFits />
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/ai-stylist" element={<AIStylistPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

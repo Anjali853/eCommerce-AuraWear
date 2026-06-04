@@ -1,46 +1,47 @@
 const HeroSection = () => {
   return (
-<section className="w-full min-h-[90vh] flex items-center justify-between px-24">
+    <section className="relative overflow-hidden w-full min-h-[90vh] flex items-center justify-center gap-32 px-10">
 
-     {/* LEFT CONTENT */}
-<div className="w-[55%] pl-20">
+      {/* LEFT CONTENT */}
+     <div className="max-w-[650px]">
 
-  <p className="text-purple-400 uppercase tracking-[8px] mb-6">
-    Future Of Fashion
-  </p>
+        <p className="text-purple-400 uppercase tracking-[8px] mb-6">
+          Future Of Fashion
+        </p>
 
- <h1 className="text-[95px] font-black leading-[0.95]">
-    WEAR
-    <br />
-    YOUR
-    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 mt-4">
-      AURA
-    </span>
-  </h1>
+          <h1 className="text-[90px] font-black leading-[0.9]">
+          WEAR
+          <br />
+          YOUR
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 mt-2">
+            AURA
+          </span>
+        </h1>
 
-<p className="text-white/60 mt-10 text-xl leading-relaxed max-w-[650px]">
-    Your digital twin in reality.
-    <br />
-    Explore futuristic AI-powered fashion experiences.
-  </p>
+        <p className="text-white/60 mt-8 text-xl leading-relaxed max-w-[500px]">
+          Your digital twin in reality.
+          <br />
+          Explore futuristic AI-powered fashion experiences.
+        </p>
 
-  {/* Buttons */}
-  <div className="flex gap-5 mt-10">
+        {/* Buttons */}
+        <div className="flex gap-5 mt-10">
 
-    <button className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/30">
-      Explore Now
-    </button>
+          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 font-semibold hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(168,85,247,0.5)]">
+          Explore Now
 
-    <button className="px-8 py-4 rounded-full border border-white/20 hover:border-purple-500 hover:text-purple-400 transition-all duration-300">
-      AI Stylist
-    </button>
+          </button>
 
-  </div>
+          <button className="px-8 py-4 rounded-full border border-white/20 hover:border-purple-500 hover:text-purple-400 transition-all duration-300">
+            AI Stylist
+          </button>
 
-</div>
+        </div>
+
+      </div>
 
       {/* RIGHT SIDE CARD */}
-      <div className="hidden lg:flex mr-10">
+     <div className="hidden lg:flex">
 
         <div className="w-[380px] h-[550px] rounded-[40px] bg-white/5 border border-white/10 backdrop-blur-xl p-5 shadow-2xl shadow-purple-500/20">
 
@@ -69,8 +70,12 @@ const HeroSection = () => {
         </div>
 
       </div>
+      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-purple-600/20 blur-[180px] rounded-full"></div>
+
+<div className="absolute right-0 top-0 w-[400px] h-[400px] bg-pink-600/10 blur-[180px] rounded-full"></div>
 
     </section>
+
   )
 }
 

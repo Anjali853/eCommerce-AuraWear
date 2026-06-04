@@ -124,6 +124,7 @@
 
 
 import Navbar from "./components/Navbar"
+import MoodSelector from "./components/MoodSelector"
 import HeroSection from "./sections/HeroSection"
 
 const App = () => {
@@ -132,6 +133,7 @@ const App = () => {
 
       <Navbar />
       <HeroSection />
+      <MoodSelector />
 
     </div>
   )

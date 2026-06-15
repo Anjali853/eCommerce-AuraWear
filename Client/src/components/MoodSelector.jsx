@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+
 const moods = [
-  { name: "Party 🎉" },
-  { name: "Casual 😎" },
-  { name: "Office 💼" },
-  { name: "Gym 💪" },
-  { name: "Date ❤️" },
-  { name: "Wedding 👑" },
-]
+  { name: "Party 🎉", path: "/mood/party" },
+  { name: "Casual 😎", path: "/mood/casual" },
+  { name: "Office 💼", path: "/mood/office" },
+  { name: "Gym 💪", path: "/mood/gym" },
+  { name: "Date ❤️", path: "/mood/date" },
+  { name: "Wedding 👑", path: "/mood/wedding" },
+];
 
 const MoodSelector = () => {
   return (
@@ -24,26 +26,31 @@ const MoodSelector = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mt-16">
 
           {moods.map((mood, index) => (
-            <div
+            <Link
               key={index}
-              className="
-                bg-white/5
-                border border-white/10
-                backdrop-blur-xl
-                rounded-3xl
-                p-6
-                text-center
-                cursor-pointer
-                hover:scale-105
-                hover:border-purple-500
-                transition-all
-                duration-300
-              "
+              to={mood.path}
             >
-              <h3 className="font-semibold text-lg">
-                {mood.name}
-              </h3>
-            </div>
+              <div
+                className="
+                  bg-white/5
+                  border border-white/10
+                  backdrop-blur-xl
+                  rounded-3xl
+                  p-6
+                  text-center
+                  cursor-pointer
+                  hover:scale-105
+                  hover:border-purple-500
+                  transition-all
+                  duration-300
+                  h-full
+                "
+              >
+                <h3 className="font-semibold text-lg">
+                  {mood.name}
+                </h3>
+              </div>
+            </Link>
           ))}
 
         </div>
@@ -51,7 +58,7 @@ const MoodSelector = () => {
       </div>
 
     </section>
-  )
-}
+  );
+};
 
-export default MoodSelector
+export default MoodSelector;

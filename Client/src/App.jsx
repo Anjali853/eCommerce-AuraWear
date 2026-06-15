@@ -122,15 +122,22 @@
 // export default App
 
 import { Routes, Route } from "react-router-dom";
-
 import Home from "./pages/Home";
 import AIStylistPage from "./pages/AIStylistPage";
+import MoodCollectionPage from "./pages/MoodCollectionPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import "./App.css";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/ai-stylist" element={<AIStylistPage />} />
+      <Route path="/mood/:moodName" element={<MoodCollectionPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/App.css" element={<App />} />
     </Routes>
   );
 }

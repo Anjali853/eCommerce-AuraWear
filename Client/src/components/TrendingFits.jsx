@@ -1,5 +1,4 @@
 import { useState } from "react";
-const [wishlist, setWishlist] = useState([]);
 
 const products = [
   {
@@ -34,6 +33,9 @@ const products = [
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
 
+
+
+
 const TrendingFits = () => {
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
@@ -51,6 +53,7 @@ const TrendingFits = () => {
     );
   };
 
+  
   return (
     <section
       style={{
@@ -92,7 +95,7 @@ const TrendingFits = () => {
         </p>
       </div>
 
-      {/* Mood Filter Pills */}
+      {/* Mood Filter Pills
       <div
         style={{
           display: "flex",
@@ -131,7 +134,7 @@ const TrendingFits = () => {
             </button>
           );
         })}
-      </div>
+      </div> */}
 
       {/* Product Grid */}
       <div
@@ -332,6 +335,15 @@ const TrendingFits = () => {
         </div>
       )}
     </section>
+
+
+
+
+
+
+
+
+
   );
 };
 

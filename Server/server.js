@@ -1,3 +1,4 @@
+const cartRoutes = require("./routes/cartRoutes");
 const authRoutes = require("./routes/authRoutes");
 require("dotenv").config();
 
@@ -13,6 +14,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.get("/", (req, res) => {
   res.json({

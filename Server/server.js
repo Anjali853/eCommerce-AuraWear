@@ -1,3 +1,4 @@
+const wishlistRoutes = require("./routes/wishlistRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 app.get("/", (req, res) => {
   res.json({
     message: "AuraWear Backend Running Successfully 🚀",

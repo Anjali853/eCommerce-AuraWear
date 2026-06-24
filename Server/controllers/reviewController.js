@@ -68,7 +68,47 @@ const getProductReviews = async (req, res) => {
 };
 
 
+const getProductRating = async (req, res) => {
+  try {
+
+    const reviews = await Review.find({
+      product: req.params.productId,
+    });
+
+    if (reviews.length === 0) {
+      return res.status(200).json({
+        averageRating: 0,
+        totalReviews: 0,
+      });
+    }
+
+    const totalRating = reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+
+    const averageRating =
+      totalRating / reviews.length;
+
+    res.status(200).json({
+      averageRating:
+        averageRating.toFixed(1),
+      totalReviews:
+        reviews.length,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+};
+
+
 module.exports = {
   addReview,
   getProductReviews,
+  getProductRating,
 };

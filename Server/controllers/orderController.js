@@ -5,10 +5,7 @@ const Product = require("../models/Product");
 // Create Order
 const createOrder = async (req, res) => {
   try {
-    const {
-      shippingAddress,
-      paymentMethod,
-    } = req.body;
+    const { shippingAddress, paymentMethod } = req.body;
 
     const cart = await Cart.findOne({
       user: req.user.id,
@@ -21,14 +18,10 @@ const createOrder = async (req, res) => {
     }
 
     const orderItems = [];
-
     let totalPrice = 0;
 
     for (const item of cart.products) {
-
-      const product = await Product.findById(
-        item.productId
-      );
+      const product = await Product.findById(item.productId);
 
       if (!product) continue;
 
@@ -40,8 +33,7 @@ const createOrder = async (req, res) => {
         quantity: item.quantity,
       });
 
-      totalPrice +=
-        product.price * item.quantity;
+      totalPrice += product.price * item.quantity;
     }
 
     const order = await Order.create({
@@ -52,16 +44,33 @@ const createOrder = async (req, res) => {
       totalPrice,
     });
 
-    // Clear Cart after order
     cart.products = [];
     await cart.save();
 
     res.status(201).json({
-      message:
-        "Order created successfully 📦",
+      message: "Order created successfully 📦",
       order,
     });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
+// Get User Orders
+const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({
+      user: req.user.id,
+    }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      count: orders.length,
+      orders,
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -71,4 +80,5 @@ const createOrder = async (req, res) => {
 
 module.exports = {
   createOrder,
+  getMyOrders,
 };

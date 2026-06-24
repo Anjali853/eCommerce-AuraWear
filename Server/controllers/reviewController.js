@@ -39,6 +39,36 @@ const addReview = async (req, res) => {
   }
 };
 
+
+// Get Reviews of a Product
+const getProductReviews = async (req, res) => {
+  try {
+
+    const reviews = await Review.find({
+      product: req.params.productId,
+    })
+    .populate("user", "name email")
+    .sort({
+      createdAt: -1,
+    });
+
+
+    res.status(200).json({
+      count: reviews.length,
+      reviews,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+};
+
+
 module.exports = {
   addReview,
+  getProductReviews,
 };

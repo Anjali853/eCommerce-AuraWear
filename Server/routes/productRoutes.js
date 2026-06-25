@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const protect = require("../middleware/authMiddleware");
+const adminOnly = require("../middleware/adminMiddleware");
+
 const {
   createProduct,
   getProducts,
@@ -8,18 +11,25 @@ const {
   getProductsByCategory,
   searchProducts,
 } = require("../controllers/productController");
-// Create Product Route
-router.post("/add", createProduct);
+
+
+// Admin Only Create Product
+router.post(
+  "/add",
+  protect,
+  adminOnly,
+  createProduct
+);
 
 router.get("/", getProducts);
 
-// Search pehle
 router.get("/search", searchProducts);
 
-// Category uske baad
-router.get("/category/:category", getProductsByCategory);
+router.get(
+  "/category/:category",
+  getProductsByCategory
+);
 
-// ID hamesha last
 router.get("/:id", getProductById);
 
 module.exports = router;

@@ -10,6 +10,7 @@ const {
   getProductById,
   getProductsByCategory,
   searchProducts,
+  updateProduct
 } = require("../controllers/productController");
 
 
@@ -22,6 +23,8 @@ router.post(
 );
 
 router.get("/", getProducts);
+
+router.put("/:id",protect,adminOnly,updateProduct);
 
 router.get("/search", searchProducts);
 

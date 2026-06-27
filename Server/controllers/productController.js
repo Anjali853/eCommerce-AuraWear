@@ -188,9 +188,10 @@ const updateProduct = async (req, res) => {
 };
 
 module.exports = {
-  createProduct,
-  getProducts,
-  getProductById,
-  getProductsByCategory,
-  searchProducts,
+    createProduct,
+    getProducts,
+    getProductById,
+    searchProducts,
+    getProductsByCategory,
+    updateProduct
 };

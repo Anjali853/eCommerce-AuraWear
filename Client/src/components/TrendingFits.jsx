@@ -1,35 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProducts } from "../services/productService";
 
-const products = [
-  {
-    name: "Cyber Glitch Jacket",
-    price: "₹2,999",
-    rating: "4.8",
-    mood: "Party",
-    image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80",
-  },
-  {
-    name: "Neon Street Hoodie",
-    price: "₹1,999",
-    rating: "4.8",
-    mood: "Casual",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
-  },
-  {
-    name: "Aura Black Tee",
-    price: "₹999",
-    rating: "4.8",
-    mood: "Office",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80",
-  },
-  {
-    name: "Tokyo Future Fit",
-    price: "₹3,499",
-    rating: "4.8",
-    mood: "Date",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80",
-  },
-];
+// const products = [
+//   {
+//     name: "Cyber Glitch Jacket",
+//     price: "₹2,999",
+//     rating: "4.8",
+//     mood: "Party",
+//     image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80",
+//   },
+//   {
+//     name: "Neon Street Hoodie",
+//     price: "₹1,999",
+//     rating: "4.8",
+//     mood: "Casual",
+//     image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
+//   },
+//   {
+//     name: "Aura Black Tee",
+//     price: "₹999",
+//     rating: "4.8",
+//     mood: "Office",
+//     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80",
+//   },
+//   {
+//     name: "Tokyo Future Fit",
+//     price: "₹3,499",
+//     rating: "4.8",
+//     mood: "Date",
+//     image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80",
+//   },
+// ];
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
 
@@ -37,7 +38,11 @@ const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤
 
 
 const TrendingFits = () => {
-  const [wishlist, setWishlist] = useState([]);
+const [products, setProducts] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+
+const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [activeMood, setActiveMood] = useState(null);
 

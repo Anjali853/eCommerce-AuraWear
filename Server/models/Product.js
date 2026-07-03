@@ -31,6 +31,37 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    mood: {
+    type: String,
+    enum: [
+      "Casual",
+      "Party",
+      "Office",
+      "Gym",
+      "Date",
+      "Travel",
+      "Wedding"
+    ],
+    default: "Casual",
+},
+
+
+brand: {
+    type: String,
+    default: "AuraWear",
+},
+
+rating: {
+    type: Number,
+    default: 4.8,
+},
+
+numReviews: {
+    type: Number,
+    default: 0,
+},
+
   },
   {
     timestamps: true,

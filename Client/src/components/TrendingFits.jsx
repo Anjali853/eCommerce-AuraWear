@@ -1,40 +1,9 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 
-// const products = [
-//   {
-//     name: "Cyber Glitch Jacket",
-//     price: "₹2,999",
-//     rating: "4.8",
-//     mood: "Party",
-//     image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80",
-//   },
-//   {
-//     name: "Neon Street Hoodie",
-//     price: "₹1,999",
-//     rating: "4.8",
-//     mood: "Casual",
-//     image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
-//   },
-//   {
-//     name: "Aura Black Tee",
-//     price: "₹999",
-//     rating: "4.8",
-//     mood: "Office",
-//     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80",
-//   },
-//   {
-//     name: "Tokyo Future Fit",
-//     price: "₹3,499",
-//     rating: "4.8",
-//     mood: "Date",
-//     image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80",
-//   },
-// ];
+
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
-
-
 
 
 const TrendingFits = () => {
@@ -45,6 +14,60 @@ const [error, setError] = useState("");
 const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [activeMood, setActiveMood] = useState(null);
+
+
+
+  useEffect(() => {
+  fetchProducts();
+}, []);
+
+const fetchProducts = async () => {
+  try {
+    const data = await getProducts();
+
+    console.log("API Response:", data);
+
+    setProducts(data.products);
+  } catch (err) {
+    console.log(err);
+
+    setError("Failed to load products");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+//abiii addd
+
+if (loading) {
+  return (
+    <h2
+      style={{
+        color: "white",
+        textAlign: "center",
+        padding: "100px",
+      }}
+    >
+      Loading Products...
+    </h2>
+  );
+}
+
+if (error) {
+  return (
+    <h2
+      style={{
+        color: "red",
+        textAlign: "center",
+        padding: "100px",
+      }}
+    >
+      {error}
+    </h2>
+  );
+}
 
   const toggleWishlist = (index) => {
     setWishlist((prev) =>
@@ -57,7 +80,6 @@ const [wishlist, setWishlist] = useState([]);
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
-
   
   return (
     <section
@@ -100,46 +122,6 @@ const [wishlist, setWishlist] = useState([]);
         </p>
       </div>
 
-      {/* Mood Filter Pills
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "10px",
-          marginBottom: "3rem",
-          padding: "0 1.5rem",
-        }}
-      >
-        {moods.map((mood) => {
-          const isActive = activeMood === mood;
-          return (
-            <button
-              key={mood}
-              onClick={() => setActiveMood(isActive ? null : mood)}
-              style={{
-                fontSize: "13px",
-                fontWeight: 600,
-                padding: "9px 22px",
-                borderRadius: "999px",
-                cursor: "pointer",
-                fontFamily: "sans-serif",
-                transition: "all 0.2s",
-                background: isActive
-                  ? "linear-gradient(135deg, #a855f7, #ec4899)"
-                  : "rgba(255,255,255,0.06)",
-                color: isActive ? "#ffffff" : "rgba(255,255,255,0.65)",
-                border: isActive
-                  ? "1.5px solid transparent"
-                  : "1.5px solid rgba(255,255,255,0.12)",
-                boxShadow: isActive ? "0 0 20px rgba(168,85,247,0.4)" : "none",
-              }}
-            >
-              {mood}
-            </button>
-          );
-        })}
-      </div> */}
 
       {/* Product Grid */}
       <div
@@ -158,7 +140,7 @@ const [wishlist, setWishlist] = useState([]);
 
           return (
             <div
-              key={index}
+              key={product._id}
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.10)",
@@ -181,7 +163,7 @@ const [wishlist, setWishlist] = useState([]);
               {/* Image */}
               <div style={{ position: "relative" }}>
                 <img
-                  src={product.image}
+                  src={product.image ||"https://via.placeholder.com/400x500?text=AuraWear"}
                   alt={product.name}
                   style={{
                     width: "100%",
@@ -280,10 +262,10 @@ const [wishlist, setWishlist] = useState([]);
                       WebkitTextFillColor: "transparent",
                     }}
                   >
-                    {product.price}
+                    ₹{product.price}
                   </p>
                   <span style={{ fontSize: "13px", color: "#facc15", fontWeight: 600 }}>
-                    ⭐ {product.rating}
+                    ⭐ {product.rating || 4.8}
                   </span>
                 </div>
 
@@ -340,14 +322,6 @@ const [wishlist, setWishlist] = useState([]);
         </div>
       )}
     </section>
-
-
-
-
-
-
-
-
 
   );
 };

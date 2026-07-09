@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
 const LoginPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -16,13 +19,44 @@ const LoginPage = () => {
     return e;
   };
 
-  const handleSubmit = () => {
-    const e = validate();
-    if (Object.keys(e).length) { setErrors(e); return; }
-    setErrors({});
+  const handleSubmit = async () => {
+  const e = validate();
+
+  if (Object.keys(e).length) {
+    setErrors(e);
+    return;
+  }
+
+  try {
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
-  };
+
+    const data = await loginUser(form);
+
+    console.log(data);
+
+    localStorage.setItem("token", data.token);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(data.user)
+    );
+
+    alert("Login Successful 🎉");
+
+    navigate("/");
+
+  } catch (err) {
+
+    alert(
+      err.response?.data?.message || "Login Failed"
+    );
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
   const s = {
     page: {

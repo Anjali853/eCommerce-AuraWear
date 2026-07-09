@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
-
+import {getWishlist,addToWishlist,removeFromWishlist,} from "../services/wishlistService";
 
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
@@ -19,6 +19,7 @@ const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
   fetchProducts();
+  fetchWishlist();
 }, []);
 
 const fetchProducts = async () => {
@@ -37,6 +38,21 @@ const fetchProducts = async () => {
   }
 };
 
+// Wishlist Functions
+const fetchWishlist = async () => {
+  try {
+    const data = await getWishlist();
+
+    const ids = data.wishlist.products.map(
+      (item) => item.productId._id
+    );
+
+    setWishlist(ids);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
 //abiii addd
@@ -69,11 +85,41 @@ if (error) {
   );
 }
 
-  const toggleWishlist = (index) => {
-    setWishlist((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  // const toggleWishlist = (index) => {
+  //   setWishlist((prev) =>
+  //     prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+  //   );
+  // };
+
+const toggleWishlist = async (productId) => {
+  try {
+
+    if (wishlist.includes(productId)) {
+
+      await removeFromWishlist(productId);
+
+      setWishlist((prev) =>
+        prev.filter((id) => id !== productId)
+      );
+
+    } else {
+
+      await addToWishlist(productId);
+
+      setWishlist((prev) => [
+        ...prev,
+        productId,
+      ]);
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
+
 
   const toggleCart = (index) => {
     setCart((prev) =>
@@ -135,7 +181,7 @@ if (error) {
         }}
       >
         {products.map((product, index) => {
-          const inWishlist = wishlist.includes(index);
+          const inWishlist = wishlist.includes(product._id);
           const inCart = cart.includes(index);
 
           return (
@@ -205,7 +251,7 @@ if (error) {
 
                 {/* Wishlist Button */}
                 <button
-                  onClick={() => toggleWishlist(index)}
+                  onClick={() => toggleWishlist(product._id)}
                   style={{
                     position: "absolute",
                     top: "10px",

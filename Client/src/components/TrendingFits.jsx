@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 import {getWishlist,addToWishlist,removeFromWishlist,} from "../services/wishlistService";
-
+import {addToCart,getCart,} from "../services/cartService";
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
 
@@ -17,9 +17,10 @@ const [wishlist, setWishlist] = useState([]);
 
 
 
-  useEffect(() => {
+ useEffect(() => {
   fetchProducts();
   fetchWishlist();
+  fetchCart();
 }, []);
 
 const fetchProducts = async () => {
@@ -53,6 +54,24 @@ const fetchWishlist = async () => {
     console.log(err);
   }
 };
+
+
+
+const fetchCart = async () => {
+  try {
+    const data = await getCart();
+
+    const ids = data.cart.products.map(
+      (item) => item.productId._id
+    );
+
+    setCart(ids);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 
 //abiii addd
@@ -121,11 +140,21 @@ const toggleWishlist = async (productId) => {
 };
 
 
-  const toggleCart = (index) => {
-    setCart((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  const toggleCart = async (productId) => {
+  try {
+
+    await addToCart(productId);
+
+    if (!cart.includes(productId)) {
+      setCart((prev) => [...prev, productId]);
+    }
+
+    alert("Added to Cart 🛒");
+
+  } catch (error) {
+    console.log(error);
+  }
+};
   
   return (
     <section
@@ -182,7 +211,7 @@ const toggleWishlist = async (productId) => {
       >
         {products.map((product, index) => {
           const inWishlist = wishlist.includes(product._id);
-          const inCart = cart.includes(index);
+          const inCart = cart.includes(product._id);
 
           return (
             <div
@@ -316,7 +345,7 @@ const toggleWishlist = async (productId) => {
                 </div>
 
                 <button
-                  onClick={() => toggleCart(index)}
+                  onClick={() => toggleCart(product._id)}
                   style={{
                     width: "100%",
                     padding: "12px",

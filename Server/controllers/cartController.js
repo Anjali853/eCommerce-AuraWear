@@ -88,8 +88,8 @@ const removeFromCart = async (req, res) => {
     const { productId } = req.body;
 
     const cart = await Cart.findOne({
-      user: req.user.id,
-    });
+    user:req.user.id
+}).populate("products.productId");
 
     if (!cart) {
       return res.status(404).json({

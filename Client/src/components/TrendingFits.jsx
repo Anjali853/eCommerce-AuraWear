@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 import {getWishlist,addToWishlist,removeFromWishlist,} from "../services/wishlistService";
 import {addToCart,getCart,} from "../services/cartService";
+import { useNavigate } from "react-router-dom";
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
 
@@ -14,6 +15,7 @@ const [error, setError] = useState("");
 const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [activeMood, setActiveMood] = useState(null);
+  const navigate = useNavigate();
 
 
 
@@ -377,24 +379,23 @@ const toggleWishlist = async (productId) => {
       {/* Cart summary pill */}
       {cart.length > 0 && (
         <div
-          style={{
-            position: "fixed",
-            bottom: "28px",
-            right: "28px",
-            background: "linear-gradient(135deg, #a855f7, #ec4899)",
-            color: "#ffffff",
-            padding: "12px 24px",
-            borderRadius: "999px",
-            fontSize: "14px",
-            fontWeight: 700,
-            fontFamily: "sans-serif",
-            boxShadow: "0 0 30px rgba(168,85,247,0.5)",
-            zIndex: 999,
-            cursor: "pointer",
-          }}
-        >
-          🛒 {cart.length} item{cart.length > 1 ? "s" : ""} in cart
-        </div>
+       onClick={() => navigate("/cart")}
+       style={{
+    position: "fixed",
+    bottom: "28px",
+    right: "28px",
+    background: "linear-gradient(135deg,#A855F7,#EC4899)",
+    color: "#fff",
+    padding: "12px 24px",
+    borderRadius: "999px",
+    fontWeight: "700",
+    cursor: "pointer",
+    boxShadow: "0 0 20px rgba(168,85,247,0.4)",
+    zIndex: 999,
+  }}
+>
+  🛒 {cart.length} item{cart.length > 1 ? "s" : ""} in cart
+</div>
       )}
     </section>
 

@@ -57,11 +57,12 @@ const addToCart = async (req, res) => {
 
 
 // Get cart
+// Get cart
 const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({
       user: req.user.id,
-    });
+    }).populate("products.productId");
 
     if (!cart) {
       return res.status(404).json({
@@ -87,8 +88,8 @@ const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
 
-    const cart = await Cart.findOne({
-    user:req.user.id
+   const cart = await Cart.findOne({
+  user: req.user.id,
 }).populate("products.productId");
 
     if (!cart) {

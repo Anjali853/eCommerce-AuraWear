@@ -79,12 +79,16 @@ const CartPage = () => {
       <Navbar />
 
       <div
-        style={{
-          maxWidth: "1200px",
-          margin: "40px auto",
-          padding: "20px",
-        }}
-      >
+  style={{
+    maxWidth: "1300px",
+    margin: "40px auto",
+    padding: "20px",
+    display: "grid",
+    gridTemplateColumns: "2fr 1fr",
+    gap: "30px",
+    alignItems: "start",
+  }}
+>
         <h1
           style={{
             fontSize: "40px",
@@ -105,26 +109,27 @@ const CartPage = () => {
             Your Cart is Empty 😔
           </div>
         ) : (
-          <>
+          <div>
             {cart.map((item) => (
               <div
                 key={item.productId._id}
                 style={{
-                  display: "flex",
-                  gap: "25px",
-                  alignItems: "center",
-                  background: "#111",
-                  padding: "20px",
-                  borderRadius: "20px",
-                  marginBottom: "20px",
+                 display: "flex",
+                 gap: "25px",
+                 alignItems: "center",
+                 background: "rgba(255,255,255,0.05)",
+                 border: "1px solid rgba(255,255,255,.08)",
+                 padding: "25px",
+                 borderRadius: "20px",
+                 marginBottom: "20px",
                 }}
               >
                 <img
                   src={item.productId.image}
                   alt={item.productId.name}
                   style={{
-                    width: "150px",
-                    height: "150px",
+                    width: "180px",
+                    height: "180px",
                     objectFit: "cover",
                     borderRadius: "15px",
                   }}
@@ -202,6 +207,17 @@ const CartPage = () => {
               </div>
             ))}
 
+
+          {/* annnnnnnnnnnnn */}
+            <div
+  style={{
+    color: "#FFD700",
+    marginTop: "8px",
+  }}
+>
+⭐⭐⭐⭐⭐
+</div>
+
             <div
               style={{
                 marginTop: "40px",
@@ -228,7 +244,7 @@ const CartPage = () => {
                 Proceed To Checkout →
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

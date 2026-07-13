@@ -327,6 +327,7 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 import {
   getCart,
   removeFromCart,
@@ -338,6 +339,7 @@ const FREE_SHIPPING_THRESHOLD = 2000;
 const SHIPPING_FEE = 99;
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState(null);
@@ -610,8 +612,46 @@ const CartPage = () => {
 
         {/* Left: Products */}
         <div>
-          {cart.length === 0 ? (
-            <div style={styles.empty}>Your Cart is Empty 😔</div>
+  {cart.length === 0 ? (
+<div
+  style={{
+    ...styles.empty,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <h2 style={{ fontSize: "32px", marginBottom: "10px" }}>
+    🛒 Your Cart is Empty
+  </h2>
+
+  <p
+    style={{
+      color: "#9CA3AF",
+      marginBottom: "30px",
+    }}
+  >
+    Looks like you haven't added anything yet.
+  </p>
+
+  <button
+    onClick={() => navigate("/")}
+    style={{
+      marginTop: "10px",
+      padding: "14px 35px",
+      border: "none",
+      borderRadius: "30px",
+      background: "linear-gradient(90deg,#A855F7,#EC4899)",
+      color: "#fff",
+      cursor: "pointer",
+      fontWeight: "bold",
+      fontSize: "15px",
+    }}
+  >
+    Continue Shopping →
+  </button>
+</div>
           ) : (
             cart.map((item) => {
               const isBusy = busyId === item.productId._id;
@@ -660,13 +700,15 @@ const CartPage = () => {
                     }}
                     onClick={() => removeItem(item.productId._id)}
                   >
-                    Remove
+                    🗑 Remove
                   </button>
                 </div>
               );
             })
           )}
         </div>
+
+        
 
         {/* Right: Sticky Order Summary */}
         {cart.length > 0 && (
@@ -697,8 +739,13 @@ const CartPage = () => {
               </span>
             </div>
 
-            <button style={styles.checkoutBtn}>Proceed To Checkout →</button>
-
+{/* kuch to chang kiya hai */}
+           <button
+  style={styles.checkoutBtn}
+  onClick={() => navigate("/checkout")}
+>
+  Proceed To Checkout →
+</button>
             {shipping > 0 && (
               <p style={styles.shippingNote}>
                 Add items worth ₹{(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)} more for free shipping

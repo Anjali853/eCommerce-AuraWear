@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { createOrder } from "../services/orderService";
 
 const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");

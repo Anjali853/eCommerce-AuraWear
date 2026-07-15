@@ -129,6 +129,8 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import MyOrders from "./pages/MyOrders";
+
 import "./App.css";
 
 function App() {
@@ -142,6 +144,7 @@ function App() {
       <Route path="/App.css" element={<App />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/orders" element={<MyOrders />} />
     </Routes>
   );
 }

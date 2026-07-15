@@ -1,15 +1,59 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { createOrder } from "../services/orderService";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
+  const navigate = useNavigate();
+
+const [fullName, setFullName] = useState("");
+const [phone, setPhone] = useState("");
+const [address, setAddress] = useState("");
+const [city, setCity] = useState("");
+const [pincode, setPincode] = useState("");
+
+const handlePlaceOrder = async () => {
+  try {
+    if (!fullName || !phone || !address || !city || !pincode) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const orderData = {
+      shippingAddress: {
+        fullName,
+        phone,
+        address,
+        city,
+        pincode,
+      },
+      paymentMethod,
+    };
+
+    const data = await createOrder(orderData);
+
+    alert(data.message);
+
+    navigate("/orders");
+
+  } catch (error) {
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to place order"
+    );
+  }
+};
+
 
   return (
     <div
       style={{
         minHeight: "100vh",
         background: "#07070A",
+
         color: "#fff",
       }}
     >
@@ -39,44 +83,54 @@ const CheckoutPage = () => {
             <label>Full Name</label>
 
             <input
-              type="text"
-              placeholder="Enter your full name"
-              style={inputStyle}
-            />
+  type="text"
+  placeholder="Enter your full name"
+  value={fullName}
+  onChange={(e) => setFullName(e.target.value)}
+  style={inputStyle}
+/>
 
             <label>Phone Number</label>
 
-            <input
-              type="text"
-              placeholder="Enter phone number"
-              style={inputStyle}
-            />
+           <input
+  type="text"
+  placeholder="Enter phone number"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+  style={inputStyle}
+/>
 
             <label>Address</label>
 
             <textarea
-              placeholder="Enter address"
-              style={{
-                ...inputStyle,
-                height: "100px",
-              }}
-            />
+  placeholder="Enter address"
+  value={address}
+  onChange={(e) => setAddress(e.target.value)}
+  style={{
+    ...inputStyle,
+    height: "100px",
+  }}
+/>
 
             <label>City</label>
 
-            <input
-              type="text"
-              placeholder="City"
-              style={inputStyle}
-            />
+           <input
+  type="text"
+  placeholder="City"
+  value={city}
+  onChange={(e) => setCity(e.target.value)}
+  style={inputStyle}
+/>
 
             <label>Pincode</label>
 
             <input
-              type="text"
-              placeholder="Pincode"
-              style={inputStyle}
-            />
+  type="text"
+  placeholder="Pincode"
+  value={pincode}
+  onChange={(e) => setPincode(e.target.value)}
+  style={inputStyle}
+/>
           </div>
 
           <h2 style={{ marginTop: "40px" }}>
@@ -154,22 +208,23 @@ const CheckoutPage = () => {
           </div>
 
           <button
-            style={{
-              width: "100%",
-              marginTop: "25px",
-              padding: "16px",
-              border: "none",
-              borderRadius: "40px",
-              background:
-                "linear-gradient(90deg,#A855F7,#EC4899)",
-              color: "#fff",
-              cursor: "pointer",
-              fontWeight: "bold",
-              fontSize: "16px",
-            }}
-          >
-            Place Order →
-          </button>
+  style={{
+    width: "100%",
+    marginTop: "25px",
+    padding: "16px",
+    border: "none",
+    borderRadius: "40px",
+    background:
+      "linear-gradient(90deg,#A855F7,#EC4899)",
+    color: "#fff",
+    cursor: "pointer",
+    fontWeight: "bold",
+    fontSize: "16px",
+  }}
+  onClick={handlePlaceOrder}
+>
+  Place Order →
+</button>
         </div>
       </div>
     </div>

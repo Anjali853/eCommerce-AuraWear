@@ -35,7 +35,7 @@ const handlePlaceOrder = async () => {
 
     alert(data.message);
 
-    navigate("/orders");
+    navigate("/order-success");
 
   } catch (error) {
     console.log(error);

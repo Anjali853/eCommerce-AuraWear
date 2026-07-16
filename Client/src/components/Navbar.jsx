@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -11,6 +11,7 @@ const navLinks = [
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -147,27 +148,34 @@ const Navbar = () => {
           </div>
 
           {/* Avatar */}
-          <div
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              background: "linear-gradient(135deg, #a855f7, #ec4899)",
-              cursor: "pointer",
-              border: "2px solid rgba(168,85,247,0.4)",
-              transition: "box-shadow 0.2s, transform 0.2s",
-              flexShrink: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 20px rgba(168,85,247,0.6)";
-              e.currentTarget.style.transform = "scale(1.08)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transform = "scale(1)";
-            }}
-          />
-
+         <div
+  onClick={() => navigate("/profile")}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.boxShadow = "0 0 20px rgba(168,85,247,0.6)";
+    e.currentTarget.style.transform = "scale(1.08)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.boxShadow = "none";
+    e.currentTarget.style.transform = "scale(1)";
+  }}
+  style={{
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    background: "linear-gradient(135deg,#A855F7,#EC4899)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    cursor: "pointer",
+    border: "2px solid rgba(168,85,247,0.4)",
+    transition: "all 0.2s",
+    flexShrink: 0,
+  }}
+>
+  A
+</div>
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}

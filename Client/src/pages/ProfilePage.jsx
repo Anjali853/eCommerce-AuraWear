@@ -1,6 +1,45 @@
 import Navbar from "../components/Navbar";
+import { useEffect, useState } from "react";
+import { getProfile } from "../services/authService";
 
 const ProfilePage = () => {
+  const [profile, setProfile] = useState(null);
+  const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+        setProfile(data);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+
+
+  if (loading) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#07070A",
+        color: "#fff",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: "22px",
+      }}
+    >
+      Loading Profile...
+    </div>
+  );
+}
+
   return (
     <div
       style={{
@@ -38,24 +77,24 @@ const ProfilePage = () => {
             fontWeight: "bold",
           }}
         >
-          A
+         {user?.name?.charAt(0).toUpperCase()}
         </div>
 
         <h1
-          style={{
-            marginTop: "20px",
-          }}
-        >
-          Anjali Choudhary
-        </h1>
+  style={{
+    marginTop: "20px",
+  }}
+>
+  {user?.name}
+</h1>
 
         <p
-          style={{
-            color: "#aaa",
-          }}
-        >
-          anjali@gmail.com
-        </p>
+  style={{
+    color: "#aaa",
+  }}
+>
+  {user?.email}
+</p>
 
         <div
           style={{

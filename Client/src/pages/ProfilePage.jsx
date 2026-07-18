@@ -1,11 +1,18 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { getProfile } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   // const [profile, setProfile] = useState(null);
   const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
+const navigate = useNavigate();
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
 
   useEffect(() => {
   const fetchProfile = async () => {
@@ -114,15 +121,16 @@ const [loading, setLoading] = useState(true);
           {menu("❤️", "Wishlist")}
           {menu("📍", "Saved Address")}
           {menu("⚙", "Edit Profile")}
-          {menu("🚪", "Logout")}
+          {menu("🚪", "Logout", handleLogout)}
         </div>
       </div>
     </div>
   );
 };
 
-const menu = (icon, title) => (
+const menu = (icon, title, onClick) => (
   <div
+    onClick={onClick}
     style={{
       display: "flex",
       justifyContent: "space-between",
@@ -135,11 +143,7 @@ const menu = (icon, title) => (
       transition: "0.3s",
     }}
   >
-    <span
-      style={{
-        fontSize: "18px",
-      }}
-    >
+    <span style={{ fontSize: "18px" }}>
       {icon} {title}
     </span>
 

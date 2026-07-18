@@ -3,22 +3,31 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../services/authService";
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState(null);
+  // const [profile, setProfile] = useState(null);
   const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getProfile();
-        setProfile(data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
+  const fetchProfile = async () => {
+    try {
+      const data = await getProfile();
 
-    fetchProfile();
-  }, []);
+      // Backend response:
+      // {
+      //   message: "...",
+      //   user: { ... }
+      // }
+
+      setUser(data.user);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProfile();
+}, []);
 
 
 

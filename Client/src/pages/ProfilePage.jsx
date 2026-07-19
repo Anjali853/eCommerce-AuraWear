@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
+
 const ProfilePage = () => {
   // const [profile, setProfile] = useState(null);
   const [user, setUser] = useState(null);
@@ -120,7 +121,7 @@ const handleLogout = () => {
           {menu("📦", "My Orders")}
           {menu("❤️", "Wishlist")}
           {menu("📍", "Saved Address")}
-          {menu("⚙", "Edit Profile")}
+          {menu("⚙", "Edit Profile", () => navigate("/edit-profile"))}
           {menu("🚪", "Logout", handleLogout)}
         </div>
       </div>

@@ -132,6 +132,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import MyOrders from "./pages/MyOrders";
 import OrderSuccess from "./pages/OrderSuccess";
 import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 
 import "./App.css";
@@ -150,6 +151,7 @@ function App() {
       <Route path="/orders" element={<MyOrders />} />
       <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/edit-profile" element={<EditProfilePage />} />
       
     </Routes>
   );

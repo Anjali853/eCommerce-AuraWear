@@ -15,8 +15,26 @@ export const getProfile = async () => {
   return response.data;
 };
 
-
 export const updateProfile = async (userData) => {
   const response = await API.put("/auth/profile", userData);
+  return response.data;
+};
+
+// Upload Profile Image
+export const uploadProfileImage = async (imageFile) => {
+  const formData = new FormData();
+
+  formData.append("image", imageFile);
+
+  const response = await API.post(
+    "/auth/upload-profile-image",
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
   return response.data;
 };

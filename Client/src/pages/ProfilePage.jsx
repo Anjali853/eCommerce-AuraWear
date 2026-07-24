@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   // const [profile, setProfile] = useState(null);
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
 const navigate = useNavigate();
+
 
 const handleLogout = () => {
   localStorage.removeItem("token");
@@ -19,13 +20,6 @@ const handleLogout = () => {
   const fetchProfile = async () => {
     try {
       const data = await getProfile();
-
-      // Backend response:
-      // {
-      //   message: "...",
-      //   user: { ... }
-      // }
-
       setUser(data.user);
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -79,24 +73,34 @@ const handleLogout = () => {
       >
         {/* Avatar */}
 
-        <div
-          style={{
-            width: "120px",
-            height: "120px",
-            borderRadius: "50%",
-            background:
-              "linear-gradient(135deg,#A855F7,#EC4899)",
-            margin: "0 auto",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "50px",
-            fontWeight: "bold",
-          }}
-        >
-         {user?.name?.charAt(0).toUpperCase()}
-        </div>
-
+{user?.profileImage ? (
+  <img
+    src={user.profileImage}
+    alt="Profile"
+    style={{
+      width: "120px",
+      height: "120px",
+      borderRadius: "50%",
+      objectFit: "cover",
+    }}
+  />
+) : (
+  <div
+    style={{
+      width: "120px",
+      height: "120px",
+      borderRadius: "50%",
+      background: "#8B5CF6",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "50px",
+      color: "white",
+    }}
+  >
+    {user?.name?.charAt(0)?.toUpperCase() || "U"}
+  </div>
+)}
         <h1
   style={{
     marginTop: "20px",

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
+// const cloudinary = require("../config/cloudinary");
 // Signup Controller
 const signupUser = async (req, res) => {
   try {
@@ -158,9 +158,67 @@ const updateProfile = async (req, res) => {
   }
 };
 
+
+
+//
+const uploadProfileImage = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: "Please select an image",
+      });
+    }
+
+    user.profileImage = req.file.path;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile image uploaded successfully",
+      profileImage: user.profileImage,
+      user,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
+// Client-side function to upload profile image
+// export const uploadProfileImage = async (imageFile) => {
+//   const formData = new FormData();
+
+//   formData.append("image", imageFile);
+
+//   const response = await API.post(
+//     "/auth/upload-profile-image",
+//     formData,
+//     {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//     }
+//   );
+
+  //return response.data;
+ //};
+
+
 module.exports = {
   signupUser,
   loginUser,
   getProfile,
   updateProfile,
+  uploadProfileImage,
 };

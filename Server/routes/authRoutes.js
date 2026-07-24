@@ -1,22 +1,35 @@
-const protect = require("../middleware/authMiddleware");
 const express = require("express");
-
 const router = express.Router();
 
-const {signupUser,loginUser,getProfile,updateProfile,} = require("../controllers/authController");
+const protect = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
+
+const {
+  signupUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  uploadProfileImage,
+} = require("../controllers/authController");
 
 // Signup Route
 router.post("/signup", signupUser);
 
-
 // Login Route
 router.post("/login", loginUser);
 
-
-// Get Profile Route
+// Get Profile
 router.get("/profile", protect, getProfile);
-// Update Profile Route
- router.put("/profile", protect, updateProfile);
 
+// Update Profile
+router.put("/profile", protect, updateProfile);
+
+// Upload Profile Image
+router.post(
+  "/upload-profile-image",
+  protect,
+  upload.single("image"),
+  uploadProfileImage
+);
 
 module.exports = router;

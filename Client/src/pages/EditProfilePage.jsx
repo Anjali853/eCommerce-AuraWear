@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { getProfile, updateProfile } from "../services/authService";
+import {
+  getProfile,
+  updateProfile,
+  uploadProfileImage,
+} from "../services/authService";
+
+
 
 const EditProfilePage = () => {
   const navigate = useNavigate();
@@ -11,12 +17,18 @@ const EditProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+
+  const [image, setImage] = useState(null);
+const [preview, setPreview] = useState("");
+
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const data = await getProfile();
         setName(data.user.name);
         setEmail(data.user.email);
+        setPreview(data.user.profileImage);
       } catch (error) {
         console.error(error);
       } finally {
@@ -27,26 +39,48 @@ const EditProfilePage = () => {
     fetchProfile();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    try {
-      setSaving(true);
+  const handleImageChange = (e) => {
+  const file = e.target.files[0];
 
-      await updateProfile({
-        name,
-        email,
-      });
+  if (!file) return;
 
-      alert("Profile Updated Successfully!");
+  setImage(file);
+  setPreview(URL.createObjectURL(file));
+};
+ 
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      navigate("/profile", { replace: true });
-    } catch (error) {
-      alert(error.response?.data?.message || "Update Failed");
-    } finally {
-      setSaving(false);
+  if (!name.trim() || !email.trim()) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    setSaving(true);
+
+    if (image) {
+      await uploadProfileImage(image);
     }
-  };
+
+    await updateProfile({
+      name,
+      email,
+    });
+
+    alert("Profile Updated Successfully!");
+
+    navigate("/profile", { replace: true });
+
+  } catch (error) {
+    alert(error.response?.data?.message || "Update Failed");
+  } finally {
+    setSaving(false);
+  }
+};
+
+  
 
   if (loading) {
     return (
@@ -90,6 +124,28 @@ const EditProfilePage = () => {
         </h2>
 
         <form onSubmit={handleSubmit}>
+          {/* //form for image upload */}
+          <div style={{ textAlign: "center", marginBottom: "20px" }}>
+  {preview ? (
+    <img
+      src={preview}
+      alt="Preview"
+      style={{
+        width: "120px",
+        height: "120px",
+        borderRadius: "50%",
+        objectFit: "cover",
+        marginBottom: "15px",
+      }}
+    />
+  ) : null}
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageChange}
+  />
+</div>
           <label>Name</label>
 
           <input

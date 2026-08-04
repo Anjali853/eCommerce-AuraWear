@@ -36,5 +36,10 @@ export const uploadProfileImage = async (imageFile) => {
     }
   );
 
+  export const updateAddress = async (address) => {
+  const response = await API.put("/auth/address", address);
+  return response.data;
+};
+
   return response.data;
 };

@@ -10,6 +10,7 @@ const {
   getProfile,
   updateProfile,
   uploadProfileImage,
+  updateAddress,
 } = require("../controllers/authController");
 
 // Signup Route
@@ -31,5 +32,6 @@ router.post(
   upload.single("image"),
   uploadProfileImage
 );
+router.put("/address", protect, updateAddress);
 
 module.exports = router;

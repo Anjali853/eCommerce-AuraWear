@@ -195,24 +195,31 @@ const uploadProfileImage = async (req, res) => {
 };
 
 
-// Client-side function to upload profile image
-// export const uploadProfileImage = async (imageFile) => {
-//   const formData = new FormData();
+const updateAddress = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
 
-//   formData.append("image", imageFile);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
 
-//   const response = await API.post(
-//     "/auth/upload-profile-image",
-//     formData,
-//     {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     }
-//   );
+    user.address = req.body;
 
-  //return response.data;
- //};
+    await user.save();
+
+    res.status(200).json({
+      message: "Address updated successfully",
+      address: user.address,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 
 module.exports = {
@@ -221,4 +228,5 @@ module.exports = {
   getProfile,
   updateProfile,
   uploadProfileImage,
+  updateAddress,
 };

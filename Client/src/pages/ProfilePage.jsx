@@ -127,6 +127,7 @@ const handleLogout = () => {
           {menu("📍", "Saved Address")}
           {menu("⚙", "Edit Profile", () => navigate("/edit-profile"))}
           {menu("🚪", "Logout", handleLogout)}
+          {menu("📍", "Saved Address", () => navigate("/address"))}
         </div>
       </div>
     </div>

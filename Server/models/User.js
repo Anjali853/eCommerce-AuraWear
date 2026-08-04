@@ -24,17 +24,44 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
 
+    profileImage: {
+      type: String,
+      default: "",
+    },
 
-
-    //
-  profileImage: {
-  type: String,
-  default: "",
-},
+//Image
+address: {
+  fullName: {
+    type: String,
+    default: "",
   },
-  {
-    timestamps: true,
-  }
+  phone: {  
+        
+    type: String,
+    default: "",
+  },
+  street: {
+    type: String,
+    default: "",
+  },
+  city: {
+    type: String,
+    default: "",
+  },
+  state: {
+    type: String,
+    default: "",
+  },
+  pincode: {
+    type: String,
+    default: "",
+  },
+  country: {
+    type: String,
+    default: "India",
+  },
+}
+  },
 );
 
 const User = mongoose.model("User", userSchema);

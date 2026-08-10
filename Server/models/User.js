@@ -29,39 +29,41 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
 
-//Image
-address: {
-  fullName: {
-    type: String,
-    default: "",
+    // Saved Address
+    address: {
+      fullName: {
+        type: String,
+        default: "",
+      },
+      phone: {
+        type: String,
+        default: "",
+      },
+      street: {
+        type: String,
+        default: "",
+      },
+      city: {
+        type: String,
+        default: "",
+      },
+      state: {
+        type: String,
+        default: "",
+      },
+      pincode: {
+        type: String,
+        default: "",
+      },
+      country: {
+        type: String,
+        default: "India",
+      },
+    },
   },
-  phone: {  
-        
-    type: String,
-    default: "",
-  },
-  street: {
-    type: String,
-    default: "",
-  },
-  city: {
-    type: String,
-    default: "",
-  },
-  state: {
-    type: String,
-    default: "",
-  },
-  pincode: {
-    type: String,
-    default: "",
-  },
-  country: {
-    type: String,
-    default: "India",
-  },
-}
-  },
+  {
+    timestamps: true,
+  }
 );
 
 const User = mongoose.model("User", userSchema);

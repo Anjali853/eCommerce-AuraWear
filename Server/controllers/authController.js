@@ -205,12 +205,20 @@ const updateAddress = async (req, res) => {
       });
     }
 
-    user.address = req.body;
+    user.address = {
+      fullName: req.body.fullName,
+      phone: req.body.phone,
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      pincode: req.body.pincode,
+      country: req.body.country,
+    };
 
     await user.save();
 
     res.status(200).json({
-      message: "Address updated successfully",
+      message: "Address Saved Successfully",
       address: user.address,
     });
 
@@ -220,7 +228,6 @@ const updateAddress = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   signupUser,

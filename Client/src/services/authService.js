@@ -20,7 +20,6 @@ export const updateProfile = async (userData) => {
   return response.data;
 };
 
-// Upload Profile Image
 export const uploadProfileImage = async (imageFile) => {
   const formData = new FormData();
 
@@ -28,18 +27,24 @@ export const uploadProfileImage = async (imageFile) => {
 
   const response = await API.post(
     "/auth/upload-profile-image",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
+    formData
   );
 
-  export const updateAddress = async (address) => {
-  const response = await API.put("/auth/address", address);
   return response.data;
 };
+
+// GET ADDRESS
+export const getAddress = async () => {
+  const response = await API.get("/auth/address");
+  return response.data;
+};
+
+// UPDATE ADDRESS
+export const updateAddress = async (addressData) => {
+  const response = await API.put(
+    "/auth/address",
+    addressData
+  );
 
   return response.data;
 };

@@ -4,6 +4,7 @@ const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const authRoutes = require("./routes/authRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const addressRoutes = require("./routes/addressRoutes");
 require("dotenv").config();
 
 const express = require("express");
@@ -23,6 +24,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/address", addressRoutes);
 app.get("/", (req, res) => {
   res.json({
     message: "AuraWear Backend Running Successfully 🚀",

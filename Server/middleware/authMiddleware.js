@@ -3,43 +3,40 @@ const User = require("../models/User");
 
 const protect = async (req, res, next) => {
   try {
-    console.log("Authorization:", req.headers.authorization);
-
-    let token;
-
     const authHeader = req.headers.authorization;
 
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      token = authHeader.split(" ")[1];
-
-      console.log("Token:", token);
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      console.log("Decoded:", decoded);
-
-      const user = await User.findById(decoded.id).select("-password");
-
-      console.log("User:", user);
-
-      if (!user) {
-        return res.status(401).json({
-          message: "User not found",
-        });
-      }
-
-      req.user = user;
-      next();
-    } else {
+    // No Authorization header
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         message: "No token, authorization denied",
       });
     }
+
+    // Get token
+    const token = authHeader.split(" ")[1];
+
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find user
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({
+        message: "User not found",
+      });
+    }
+
+    // Attach user to request
+    req.user = user;
+
+    next();
+
   } catch (error) {
-    console.log("JWT ERROR:", error.message);
+    console.error("Auth Error:", error.message);
 
     return res.status(401).json({
-      message: error.message,
+      message: "Invalid or expired token",
     });
   }
 };

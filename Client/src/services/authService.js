@@ -33,18 +33,20 @@ export const uploadProfileImage = async (imageFile) => {
   return response.data;
 };
 
-// GET ADDRESS
+// Get Saved Address
 export const getAddress = async () => {
-  const response = await API.get("/auth/address");
+  const response = await API.get("/address");
   return response.data;
 };
 
-// UPDATE ADDRESS
-export const updateAddress = async (addressData) => {
-  const response = await API.put(
-    "/auth/address",
-    addressData
-  );
+// Save / Update Address
+export const saveAddress = async (addressData) => {
+  const response = await API.post("/address", addressData);
+  return response.data;
+};
 
+// Delete Address
+export const deleteAddress = async () => {
+  const response = await API.delete("/address");
   return response.data;
 };

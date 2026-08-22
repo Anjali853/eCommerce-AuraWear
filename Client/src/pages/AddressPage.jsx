@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import {getAddress,updateAddress,} from "../services/authService";
+import { getAddress, saveAddress } from "../services/authService";
 
 const AddressPage = () => {
   const navigate = useNavigate();
@@ -16,6 +16,36 @@ const AddressPage = () => {
     country: "India",
   });
 
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  // Load saved address
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const data = await getAddress();
+
+        if (data.address) {
+          setForm({
+            fullName: data.address.fullName || "",
+            phone: data.address.phone || "",
+            street: data.address.street || "",
+            city: data.address.city || "",
+            state: data.address.state || "",
+            pincode: data.address.pincode || "",
+            country: data.address.country || "India",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching address:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAddress();
+  }, []);
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -27,15 +57,40 @@ const AddressPage = () => {
     e.preventDefault();
 
     try {
-      await updateAddress(form);
+      setSaving(true);
+
+      await saveAddress(form);
 
       alert("Address Saved Successfully");
 
       navigate("/profile");
     } catch (error) {
-      alert(error.response?.data?.message || "Failed");
+      alert(
+        error.response?.data?.message ||
+          "Failed to save address"
+      );
+    } finally {
+      setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#07070A",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "22px",
+        }}
+      >
+        Loading Address...
+      </div>
+    );
+  }
 
   return (
     <div
@@ -56,7 +111,12 @@ const AddressPage = () => {
           borderRadius: "20px",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "30px",
+          }}
+        >
           Saved Address
         </h2>
 
@@ -67,6 +127,7 @@ const AddressPage = () => {
             value={form.fullName}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -75,6 +136,7 @@ const AddressPage = () => {
             value={form.phone}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -83,6 +145,7 @@ const AddressPage = () => {
             value={form.street}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -91,6 +154,7 @@ const AddressPage = () => {
             value={form.city}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -99,6 +163,7 @@ const AddressPage = () => {
             value={form.state}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -107,6 +172,7 @@ const AddressPage = () => {
             value={form.pincode}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
           <input
@@ -115,10 +181,18 @@ const AddressPage = () => {
             value={form.country}
             onChange={handleChange}
             style={inputStyle}
+            required
           />
 
-          <button type="submit" style={buttonStyle}>
-            Save Address
+          <button
+            type="submit"
+            disabled={saving}
+            style={{
+              ...buttonStyle,
+              opacity: saving ? 0.7 : 1,
+            }}
+          >
+            {saving ? "Saving..." : "Save Address"}
           </button>
         </form>
       </div>

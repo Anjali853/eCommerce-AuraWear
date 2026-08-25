@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { createOrder } from "../services/orderService";
+import { getAddress } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
@@ -11,11 +12,37 @@ const [fullName, setFullName] = useState("");
 const [phone, setPhone] = useState("");
 const [address, setAddress] = useState("");
 const [city, setCity] = useState("");
+const [state, setState] = useState("");
 const [pincode, setPincode] = useState("");
+
+const [loadingAddress, setLoadingAddress] = useState(true);
+
+useEffect(() => {
+  const fetchSavedAddress = async () => {
+    try {
+      const data = await getAddress();
+
+      if (data.address) {
+        setFullName(data.address.fullName || "");
+        setPhone(data.address.phone || "");
+        setAddress(data.address.street || "");
+        setCity(data.address.city || "");
+        setState(data.address.state || "");
+        setPincode(data.address.pincode || "");
+      }
+    } catch (error) {
+      console.error("Error fetching saved address:", error);
+    } finally {
+      setLoadingAddress(false);
+    }
+  };
+
+  fetchSavedAddress();
+}, []);
 
 const handlePlaceOrder = async () => {
   try {
-    if (!fullName || !phone || !address || !city || !pincode) {
+    if (!fullName || !phone || !address || !city || !state || !pincode) {
       alert("Please fill all fields");
       return;
     }
@@ -26,6 +53,7 @@ const handlePlaceOrder = async () => {
         phone,
         address,
         city,
+        state,
         pincode,
       },
       paymentMethod,

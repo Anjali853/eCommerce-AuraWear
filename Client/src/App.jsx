@@ -11,6 +11,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import AddressPage from "./pages/AddressPage";
+import WishlistPage from "./pages/WishlistPage";
 
 
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/App.css" element={<App />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/orders" element={<MyOrders />} />
       <Route path="/order-success" element={<OrderSuccess />} />

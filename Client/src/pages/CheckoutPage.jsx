@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { createOrder } from "../services/orderService";
-import { getAddress } from "../services/authService";
+// import { getAddress } from "../services/authService";
+import { getAddress } from "../services/addressService";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
@@ -142,7 +143,7 @@ const handlePlaceOrder = async () => {
 
             <label>City</label>
 
-           <input
+<input
   type="text"
   placeholder="City"
   value={city}
@@ -150,8 +151,17 @@ const handlePlaceOrder = async () => {
   style={inputStyle}
 />
 
-            <label>Pincode</label>
+<label>State</label>
 
+<input
+  type="text"
+  placeholder="State"
+  value={state}
+  onChange={(e) => setState(e.target.value)}
+  style={inputStyle}
+/>
+
+<label>Pincode</label>
             <input
   type="text"
   placeholder="Pincode"

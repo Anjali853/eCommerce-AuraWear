@@ -3,12 +3,15 @@ import Navbar from "../components/Navbar";
 import { createOrder } from "../services/orderService";
 // import { getAddress } from "../services/authService";
 import { getAddress } from "../services/addressService";
+import { getCart } from "../services/cartService";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const navigate = useNavigate();
 
+const [cart, setCart] = useState([]);
+const [loadingCart, setLoadingCart] = useState(true);
 const [fullName, setFullName] = useState("");
 const [phone, setPhone] = useState("");
 const [address, setAddress] = useState("");
@@ -40,6 +43,42 @@ useEffect(() => {
 
   fetchSavedAddress();
 }, []);
+
+// Fetch cart items
+useEffect(() => {
+  const fetchCartData = async () => {
+    try {
+      const data = await getCart();
+      setCart(data.cart?.products || []);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    } finally {
+      setLoadingCart(false);
+    }
+  };
+
+  fetchCartData();
+}, []);
+
+// Handle Place Order
+const GST_RATE = 0.18;
+const FREE_SHIPPING_THRESHOLD = 2000;
+const SHIPPING_FEE = 99;
+
+const subtotal = cart.reduce(
+  (sum, item) =>
+    sum + item.productId.price * item.quantity,
+  0
+);
+
+const gst = subtotal * GST_RATE;
+
+const shipping =
+  subtotal === 0 || subtotal >= FREE_SHIPPING_THRESHOLD
+    ? 0
+    : SHIPPING_FEE;
+
+const grandTotal = subtotal + gst + shipping;
 
 const handlePlaceOrder = async () => {
   try {
@@ -219,19 +258,23 @@ const handlePlaceOrder = async () => {
           />
 
           <div style={row}>
-            <span>Subtotal</span>
-            <span>₹2499</span>
-          </div>
+  <span>Subtotal</span>
+  <span>₹{subtotal.toFixed(2)}</span>
+</div>
 
-          <div style={row}>
-            <span>Shipping</span>
-            <span>FREE</span>
-          </div>
+<div style={row}>
+  <span>Shipping</span>
+  <span>
+    {shipping === 0
+      ? "FREE"
+      : `₹${shipping.toFixed(2)}`}
+  </span>
+</div>
 
-          <div style={row}>
-            <span>GST</span>
-            <span>₹450</span>
-          </div>
+<div style={row}>
+  <span>GST (18%)</span>
+  <span>₹{gst.toFixed(2)}</span>
+</div>
 
           <hr
             style={{
@@ -241,9 +284,9 @@ const handlePlaceOrder = async () => {
           />
 
           <div style={row}>
-            <h3>Total</h3>
-            <h2>₹2949</h2>
-          </div>
+  <h3>Total</h3>
+  <h2>₹{grandTotal.toFixed(2)}</h2>
+</div>
 
           <button
   style={{

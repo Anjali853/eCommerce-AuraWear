@@ -3,6 +3,7 @@ const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 
 // Create Order
+// Create Order
 const createOrder = async (req, res) => {
   try {
     const { shippingAddress, paymentMethod } = req.body;
@@ -18,7 +19,7 @@ const createOrder = async (req, res) => {
     }
 
     const orderItems = [];
-    let totalPrice = 0;
+    let subtotal = 0;
 
     for (const item of cart.products) {
       const product = await Product.findById(item.productId);
@@ -33,8 +34,22 @@ const createOrder = async (req, res) => {
         quantity: item.quantity,
       });
 
-      totalPrice += product.price * item.quantity;
+      subtotal += product.price * item.quantity;
     }
+
+    // Pricing
+    const GST_RATE = 0.18;
+    const FREE_SHIPPING_THRESHOLD = 2000;
+    const SHIPPING_FEE = 99;
+
+    const gst = subtotal * GST_RATE;
+
+    const shipping =
+      subtotal >= FREE_SHIPPING_THRESHOLD
+        ? 0
+        : SHIPPING_FEE;
+
+    const totalPrice = subtotal + gst + shipping;
 
     const order = await Order.create({
       user: req.user.id,
@@ -44,6 +59,7 @@ const createOrder = async (req, res) => {
       totalPrice,
     });
 
+    // Clear cart after successful order
     cart.products = [];
     await cart.save();
 

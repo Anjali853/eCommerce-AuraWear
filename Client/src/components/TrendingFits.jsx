@@ -217,7 +217,8 @@ const toggleWishlist = async (productId) => {
 
           return (
             <div
-              key={product._id}
+  key={product._id}
+  onClick={() => navigate(`/product/${product._id}`)}
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.10)",
@@ -281,31 +282,35 @@ const toggleWishlist = async (productId) => {
                 </div>
 
                 {/* Wishlist Button */}
-                <button
-                  onClick={() => toggleWishlist(product._id)}
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    width: "42px",
-                    height: "42px",
-                    borderRadius: "50%",
-                    background: "rgba(0,0,0,0.55)",
-                    border: inWishlist
-                      ? "1.5px solid rgba(236,72,153,0.7)"
-                      : "1.5px solid rgba(255,255,255,0.15)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    fontSize: "18px",
-                    transition: "all 0.2s",
-                    backdropFilter: "blur(8px)",
-                  }}
-                  title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-                >
-                  {inWishlist ? "❤️" : "🤍"}
-                </button>
+               {/* Wishlist Button */}
+<button
+  onClick={(e) => {
+    e.stopPropagation();
+    toggleWishlist(product._id);
+  }}
+  style={{
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    width: "42px",
+    height: "42px",
+    borderRadius: "50%",
+    background: "rgba(0,0,0,0.55)",
+    border: inWishlist
+      ? "1.5px solid rgba(236,72,153,0.7)"
+      : "1.5px solid rgba(255,255,255,0.15)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    fontSize: "18px",
+    transition: "all 0.2s",
+    backdropFilter: "blur(8px)",
+  }}
+  title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+>
+  {inWishlist ? "❤️" : "🤍"}
+</button>
               </div>
 
               {/* Product Info */}

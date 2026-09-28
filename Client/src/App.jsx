@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import ProductDetail from "./pages/ProductDetail";
 import AIStylistPage from "./pages/AIStylistPage";
 import MoodCollectionPage from "./pages/MoodCollectionPage";
 import LoginPage from "./pages/LoginPage";
@@ -24,7 +25,7 @@ function App() {
       <Route path="/mood/:moodName" element={<MoodCollectionPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/App.css" element={<App />} />
+      {/* <Route path="/App.css" element={<App />} /> */}
       <Route path="/cart" element={<CartPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
@@ -33,6 +34,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/edit-profile" element={<EditProfilePage />} />
       <Route path="/address" element={<AddressPage />} />
+      <Route path="/product/:productId" element={<ProductDetail />} />
     </Routes>
   );
 }

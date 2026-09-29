@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProducts } from "../services/productService";
+import { getProductById, getProducts } from "../services/productService";
 import { addToCart } from "../services/cartService";
 import {
   getWishlist,
@@ -9,7 +9,7 @@ import {
 } from "../services/wishlistService";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { productId } = useParams();
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
@@ -22,39 +22,38 @@ const ProductDetail = () => {
   const sizes = ["XS", "S", "M", "L", "XL"];
 
   useEffect(() => {
-    fetchProduct();
-    fetchWishlist();
-  }, [id]);
+  fetchProduct();
+  fetchWishlist();
+}, [productId]);
 
-  const fetchProduct = async () => {
-    try {
-      const data = await getProducts();
+const fetchProduct = async () => {
+  try {
+    // Get the exact product
+    const productData = await getProductById(productId);
 
-      const allProducts = data.products || [];
+    setProduct(productData);
 
-      const currentProduct = allProducts.find(
-        (item) => item._id === id
-      );
+    // Get products for "You might also like"
+    const data = await getProducts();
 
-      setProduct(currentProduct);
+    const allProducts = data.products || [];
 
-      if (currentProduct) {
-        setSimilarProducts(
-          allProducts
-            .filter(
-              (item) =>
-                item.category === currentProduct.category &&
-                item._id !== currentProduct._id
-            )
-            .slice(0, 4)
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching product:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const similar = allProducts
+      .filter(
+        (item) =>
+          item.category === productData.category &&
+          item._id !== productData._id
+      )
+      .slice(0, 4);
+
+    setSimilarProducts(similar);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    setProduct(null);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchWishlist = async () => {
     try {

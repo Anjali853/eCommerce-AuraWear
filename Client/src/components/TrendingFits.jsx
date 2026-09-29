@@ -46,9 +46,9 @@ const fetchWishlist = async () => {
   try {
     const data = await getWishlist();
 
-    const ids = data.wishlist.products.map(
-      (item) => item.productId._id
-    );
+    const ids = (data.wishlist?.products || [])
+  .filter((item) => item.productId)
+  .map((item) => item.productId._id);
 
     setWishlist(ids);
 

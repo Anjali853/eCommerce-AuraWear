@@ -130,6 +130,12 @@ images: [
     price: 3499,
     image:
       "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+  "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800",
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+  "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=800",
+],
     category: "Jacket",
     stock: 20,
     description:
@@ -145,6 +151,12 @@ images: [
     price: 3299,
     image:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+  "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800",
+  "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800",
+  "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800",
+],
     category: "Shoes",
     stock: 22,
     description:
@@ -160,6 +172,12 @@ images: [
     price: 2499,
     image:
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800",
+  "https://images.unsplash.com/photo-1578681994506-b8f463449011?w=800",
+  "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800",
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+],
     category: "Hoodie",
     stock: 30,
     description:
@@ -175,6 +193,12 @@ images: [
     price: 2699,
     image:
       "https://images.unsplash.com/photo-1509942774463-acf339cf87d5?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800",
+  "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800",
+  "https://images.unsplash.com/photo-1578681994506-b8f463449011?w=800",
+  "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800",
+],
     category: "Hoodie",
     stock: 28,
     description:
@@ -190,6 +214,12 @@ images: [
     price: 1999,
     image:
       "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1506629905607-d9c297d6f5c1?w=800",
+  "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800",
+  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800",
+  "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800",
+],
     category: "Pants",
     stock: 26,
     description:

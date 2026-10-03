@@ -12,9 +12,16 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
 
+    // Main product image
     image: {
       type: String,
       required: true,
+    },
+
+    // Multiple product images for gallery
+    images: {
+      type: [String],
+      default: [],
     },
 
     category: {
@@ -33,35 +40,33 @@ const productSchema = new mongoose.Schema(
     },
 
     mood: {
-    type: String,
-    enum: [
-      "Casual",
-      "Party",
-      "Office",
-      "Gym",
-      "Date",
-      "Travel",
-      "Wedding"
-    ],
-    default: "Casual",
-},
+      type: String,
+      enum: [
+        "Casual",
+        "Party",
+        "Office",
+        "Gym",
+        "Date",
+        "Travel",
+        "Wedding",
+      ],
+      default: "Casual",
+    },
 
+    brand: {
+      type: String,
+      default: "AuraWear",
+    },
 
-brand: {
-    type: String,
-    default: "AuraWear",
-},
+    rating: {
+      type: Number,
+      default: 4.8,
+    },
 
-rating: {
-    type: Number,
-    default: 4.8,
-},
-
-numReviews: {
-    type: Number,
-    default: 0,
-},
-
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
+import toast from "react-hot-toast";
 import {getWishlist,addToWishlist,removeFromWishlist,} from "../services/wishlistService";
 import {addToCart,getCart,} from "../services/cartService";
 import { useNavigate } from "react-router-dom";
@@ -151,7 +152,7 @@ const toggleWishlist = async (productId) => {
       setCart((prev) => [...prev, productId]);
     }
 
-    alert("Added to Cart 🛒");
+    toast.success("Added to Cart 🛒");
 
   } catch (error) {
     console.log(error);

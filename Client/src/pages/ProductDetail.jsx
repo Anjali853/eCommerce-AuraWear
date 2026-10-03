@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductById, getProducts } from "../services/productService";
 import { addToCart } from "../services/cartService";
@@ -16,8 +17,9 @@ const ProductDetail = () => {
   const [similarProducts, setSimilarProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState("M");
-  const [loading, setLoading] = useState(true);
+const [selectedSize, setSelectedSize] = useState("M");
+const [selectedImage, setSelectedImage] = useState("");
+const [loading, setLoading] = useState(true);
 
   const sizes = ["XS", "S", "M", "L", "XL"];
 
@@ -32,6 +34,10 @@ const fetchProduct = async () => {
     const productData = await getProductById(productId);
 
     setProduct(productData);
+
+setSelectedImage(
+  productData.images?.[0] || productData.image
+);
 
     // Get products for "You might also like"
     const data = await getProducts();
@@ -59,10 +65,9 @@ const fetchProduct = async () => {
     try {
       const data = await getWishlist();
 
-      const ids =
-        data.wishlist?.products?.map(
-          (item) => item.productId._id
-        ) || [];
+      const ids = (data.wishlist?.products || [])
+  .filter((item) => item.productId)
+  .map((item) => item.productId._id);
 
       setWishlist(ids);
     } catch (error) {
@@ -94,13 +99,13 @@ const fetchProduct = async () => {
         await addToCart(product._id);
       }
 
-      alert("Added to Bag 🛍️");
+      toast.success("Added to Bag 🛍️");
     } catch (error) {
       console.error("Add to cart error:", error);
-      alert(
-        error.response?.data?.message ||
-          "Unable to add product to cart"
-      );
+      toast.error(
+  error.response?.data?.message ||
+    "Unable to add product to cart"
+);
     }
   };
 
@@ -205,48 +210,100 @@ const fetchProduct = async () => {
           alignItems: "center",
         }}
       >
-        {/* Image */}
+       {/* Product Gallery */}
 
-        <div
+<div>
+  {/* Main Image */}
+  <div
+    style={{
+      position: "relative",
+      borderRadius: "30px",
+      overflow: "hidden",
+      background: "rgba(255,255,255,0.04)",
+      border: "1px solid rgba(255,255,255,0.1)",
+    }}
+  >
+    <img
+      src={selectedImage || product.image}
+      alt={product.name}
+      style={{
+        width: "100%",
+        height: "650px",
+        objectFit: "cover",
+        display: "block",
+      }}
+    />
+
+    {/* Wishlist */}
+    <button
+      onClick={handleWishlist}
+      style={{
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        width: "52px",
+        height: "52px",
+        borderRadius: "50%",
+        border: "1px solid rgba(255,255,255,0.2)",
+        background: "rgba(0,0,0,0.55)",
+        color: "white",
+        fontSize: "23px",
+        cursor: "pointer",
+        backdropFilter: "blur(10px)",
+      }}
+    >
+      {inWishlist ? "❤️" : "🤍"}
+    </button>
+  </div>
+
+  {/* Thumbnails */}
+  <div
+    style={{
+      display: "flex",
+      gap: "12px",
+      marginTop: "14px",
+      overflowX: "auto",
+      paddingBottom: "5px",
+    }}
+  >
+    {(product.images?.length
+      ? product.images
+      : [product.image]
+    ).map((image, index) => (
+      <button
+        key={`${image}-${index}`}
+        onClick={() => setSelectedImage(image)}
+        style={{
+          padding: 0,
+          border:
+            selectedImage === image
+              ? "2px solid #ec4899"
+              : "2px solid rgba(255,255,255,0.12)",
+          borderRadius: "14px",
+          overflow: "hidden",
+          background: "transparent",
+          cursor: "pointer",
+          flexShrink: 0,
+          boxShadow:
+            selectedImage === image
+              ? "0 0 18px rgba(236,72,153,0.35)"
+              : "none",
+        }}
+      >
+        <img
+          src={image}
+          alt={`${product.name} ${index + 1}`}
           style={{
-            position: "relative",
-            borderRadius: "30px",
-            overflow: "hidden",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.1)",
+            width: "78px",
+            height: "95px",
+            objectFit: "cover",
+            display: "block",
           }}
-        >
-          <img
-            src={product.image}
-            alt={product.name}
-            style={{
-              width: "100%",
-              height: "650px",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-
-          <button
-            onClick={handleWishlist}
-            style={{
-              position: "absolute",
-              top: "20px",
-              right: "20px",
-              width: "52px",
-              height: "52px",
-              borderRadius: "50%",
-              border: "1px solid rgba(255,255,255,0.2)",
-              background: "rgba(0,0,0,0.55)",
-              color: "white",
-              fontSize: "23px",
-              cursor: "pointer",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            {inWishlist ? "❤️" : "🤍"}
-          </button>
-        </div>
+        />
+      </button>
+    ))}
+  </div>
+</div>
 
         {/* Details */}
 

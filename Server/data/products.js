@@ -4,6 +4,13 @@ const products = [
     price: 1499,
     image:
       "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800",
+
+      images: [
+  "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800",
+  "https://images.unsplash.com/photo-1583743814966-8936f37f4678?w=800",
+  "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800",
+  "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800",
+],
     category: "T-Shirt",
     stock: 40,
     description:
@@ -299,5 +306,17 @@ const products = [
     numReviews: 88,
   },
 ];
+
+// Add gallery images to every product
+products.forEach((product) => {
+  if (!product.images || product.images.length === 0) {
+    product.images = [
+      product.image,
+      product.image,
+      product.image,
+      product.image,
+    ];
+  }
+});
 
 module.exports = products;

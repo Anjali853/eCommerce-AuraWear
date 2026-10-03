@@ -235,6 +235,12 @@ images: [
     price: 2999,
     image:
       "https://images.unsplash.com/photo-1523205565295-f8e91625443b?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1523205565295-f8e36b5b0b90?w=800",
+  "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=800",
+  "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800",
+  "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=800",
+],
     category: "Jacket",
     stock: 21,
     description:
@@ -250,6 +256,12 @@ images: [
     price: 999,
     image:
       "https://images.unsplash.com/photo-1551489186-cf8726f514f8?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1564257577054-8e0f3b5a4b2a?w=800",
+  "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800",
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800",
+],
     category: "Top",
     stock: 50,
     description:
@@ -265,6 +277,12 @@ images: [
     price: 1399,
     image:
       "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800",
+  "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800",
+  "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800",
+  "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800",
+],
     category: "T-Shirt",
     stock: 42,
     description:
@@ -280,6 +298,12 @@ images: [
     price: 1899,
     image:
       "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800",
+  "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?w=800",
+  "https://images.unsplash.com/photo-1605763240000-7e93b172d754?w=800",
+  "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=800",
+],
     category: "Shirt",
     stock: 33,
     description:
@@ -295,6 +319,12 @@ images: [
     price: 2199,
     image:
       "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800",
+  "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800",
+  "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800",
+  "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800",
+],
     category: "Dress",
     stock: 25,
     description:
@@ -310,6 +340,12 @@ images: [
     price: 2399,
     image:
       "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800",
+  "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800",
+  "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800",
+  "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800",
+],
     category: "Dress",
     stock: 19,
     description:
@@ -325,6 +361,12 @@ images: [
     price: 3599,
     image:
       "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+  "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800",
+  "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800",
+  "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800",
+],
     category: "Shoes",
     stock: 24,
     description:
@@ -340,6 +382,12 @@ images: [
     price: 799,
     image:
       "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=800",
+  "https://images.unsplash.com/photo-1588850561407-ed78c282e333?w=800",
+  "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=800",
+  "https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800",
+],
     category: "Accessories",
     stock: 60,
     description:
@@ -355,6 +403,12 @@ images: [
     price: 1499,
     image:
       "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800",
+  "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=800",
+  "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800",
+  "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800",
+],
     category: "Accessories",
     stock: 35,
     description:

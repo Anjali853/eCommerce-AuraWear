@@ -24,7 +24,13 @@ images: [
     name: "After Dark Baggy Cargo",
     price: 2299,
     image:
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800",
+    images: [
+  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800",
+  "https://images.unsplash.com/photo-1506629905607-d9c297d6f5c1?w=800",
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+  "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800",
+],
     category: "Pants",
     stock: 32,
     description:
@@ -40,6 +46,12 @@ images: [
     price: 3999,
     image:
       "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800",
+    images: [
+  "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800",
+  "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=800",
+  "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800",
+  "https://images.unsplash.com/photo-1578681994506-b8f463449011?w=800",
+],
     category: "Jacket",
     stock: 18,
     description:
@@ -55,6 +67,12 @@ images: [
     price: 2799,
     image:
       "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800",
+    images: [
+  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800",
+  "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=800",
+  "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=800",
+  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800",
+],
     category: "Co-ord",
     stock: 24,
     description:
@@ -70,6 +88,12 @@ images: [
     price: 2499,
     image:
       "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800",
+  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800",
+  "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800",
+  "https://images.unsplash.com/photo-1475178626620-a4d074967452?w=800",
+],
     category: "Jeans",
     stock: 35,
     description:
@@ -85,6 +109,12 @@ images: [
     price: 1199,
     image:
       "https://images.unsplash.com/photo-1564257577054-3e6c8b5c7f47?w=800",
+      images: [
+  "https://images.unsplash.com/photo-1566206091558-7f218b696731?w=800",
+  "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800",
+  "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=800",
+  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+],
     category: "Top",
     stock: 45,
     description:

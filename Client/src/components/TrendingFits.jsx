@@ -7,6 +7,18 @@ import { useNavigate } from "react-router-dom";
 
 const moods = ["Party 🎉", "Casual 😎", "Office 💼", "Gym 💪", "Date ❤️", "Wedding 👑"];
 
+const categories = [
+  "All",
+  "T-Shirt",
+  "Hoodie",
+  "Jacket",
+  "Shirt",
+  "Dress",
+  "Pants",
+  "Sneakers",
+  "Accessories",
+];
+
 
 const TrendingFits = () => {
 const [products, setProducts] = useState([]);
@@ -17,6 +29,10 @@ const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [activeMood, setActiveMood] = useState(null);
   const navigate = useNavigate();
+
+const [activeCategory, setActiveCategory] = useState("All");
+const [priceFilter, setPriceFilter] = useState("All");
+const [sortBy, setSortBy] = useState("default");
 
 
 
@@ -107,11 +123,6 @@ if (error) {
   );
 }
 
-  // const toggleWishlist = (index) => {
-  //   setWishlist((prev) =>
-  //     prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-  //   );
-  // };
 
 const toggleWishlist = async (productId) => {
   try {
@@ -199,6 +210,112 @@ const toggleWishlist = async (productId) => {
           Discover the most loved styles on AuraWear
         </p>
       </div>
+
+      {/* Filters & Sort */}
+
+<div
+  style={{
+    maxWidth: "1200px",
+    margin: "0 auto 2.5rem",
+    padding: "0 2rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "12px",
+    flexWrap: "wrap",
+  }}
+>
+  {/* Category */}
+  <select
+    value={activeCategory}
+    onChange={(e) => setActiveCategory(e.target.value)}
+    style={{
+      padding: "11px 16px",
+      borderRadius: "999px",
+      border: "1px solid rgba(255,255,255,0.12)",
+      background: "#111116",
+      color: "#fff",
+      outline: "none",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    {categories.map((category) => (
+      <option key={category} value={category}>
+        {category === "All" ? "All Categories" : category}
+      </option>
+    ))}
+  </select>
+
+  {/* Price */}
+  <select
+    value={priceFilter}
+    onChange={(e) => setPriceFilter(e.target.value)}
+    style={{
+      padding: "11px 16px",
+      borderRadius: "999px",
+      border: "1px solid rgba(255,255,255,0.12)",
+      background: "#111116",
+      color: "#fff",
+      outline: "none",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    <option value="All">All Prices</option>
+    <option value="under1000">Under ₹1,000</option>
+    <option value="1000-2000">₹1,000 – ₹2,000</option>
+    <option value="2000-3000">₹2,000 – ₹3,000</option>
+    <option value="above3000">Above ₹3,000</option>
+  </select>
+
+  {/* Sort */}
+  <select
+    value={sortBy}
+    onChange={(e) => setSortBy(e.target.value)}
+    style={{
+      padding: "11px 16px",
+      borderRadius: "999px",
+      border: "1px solid rgba(255,255,255,0.12)",
+      background: "#111116",
+      color: "#fff",
+      outline: "none",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    <option value="default">Sort By</option>
+    <option value="priceLow">Price: Low → High</option>
+    <option value="priceHigh">Price: High → Low</option>
+    <option value="rating">Top Rated</option>
+    <option value="newest">Newest</option>
+  </select>
+
+  {/* Clear Filters */}
+  {(activeCategory !== "All" ||
+    priceFilter !== "All" ||
+    sortBy !== "default") && (
+    <button
+      onClick={() => {
+        setActiveCategory("All");
+        setPriceFilter("All");
+        setSortBy("default");
+      }}
+      style={{
+        padding: "11px 18px",
+        borderRadius: "999px",
+        border: "1px solid rgba(236,72,153,0.35)",
+        background: "rgba(236,72,153,0.08)",
+        color: "#ec4899",
+        cursor: "pointer",
+        fontSize: "13px",
+        fontWeight: 600,
+      }}
+    >
+      Clear Filters ×
+    </button>
+  )}
+</div>
 
 
       {/* Product Grid */}

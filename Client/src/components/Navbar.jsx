@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { searchProducts } from "../services/productService";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
@@ -10,8 +11,34 @@ const navLinks = [
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [search, setSearch] = useState("");
+const [searchResults, setSearchResults] = useState([]);
+const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+  const delaySearch = setTimeout(async () => {
+    if (!search.trim()) {
+      setSearchResults([]);
+      setSearchOpen(false);
+      return;
+    }
+
+    try {
+      const data = await searchProducts(search.trim());
+
+      setSearchResults(data.products || []);
+      setSearchOpen(true);
+    } catch (error) {
+      console.error("Search error:", error);
+      setSearchResults([]);
+      setSearchOpen(true);
+    }
+  }, 300);
+
+  return () => clearTimeout(delaySearch);
+}, [search]);
 
   return (
     <>
@@ -56,6 +83,153 @@ const Navbar = () => {
             </span>
           </h1>
         </Link>
+
+        {/* Search */}
+<div
+  style={{
+    position: "relative",
+    width: "260px",
+    marginLeft: "20px",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      height: "42px",
+      padding: "0 14px",
+      borderRadius: "999px",
+      background: "rgba(255,255,255,0.06)",
+      border: "1px solid rgba(255,255,255,0.1)",
+      transition: "all 0.2s",
+    }}
+  >
+    <span style={{ fontSize: "16px", opacity: 0.6 }}>⌕</span>
+
+    <input
+      type="text"
+      placeholder="Search your vibe..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      onFocus={() => {
+        if (search.trim()) setSearchOpen(true);
+      }}
+      style={{
+        width: "100%",
+        border: "none",
+        outline: "none",
+        background: "transparent",
+        color: "#fff",
+        fontSize: "13px",
+      }}
+    />
+
+    {search && (
+      <button
+        onClick={() => {
+          setSearch("");
+          setSearchResults([]);
+          setSearchOpen(false);
+        }}
+        style={{
+          border: "none",
+          background: "transparent",
+          color: "rgba(255,255,255,0.5)",
+          cursor: "pointer",
+          fontSize: "14px",
+        }}
+      >
+        ×
+      </button>
+    )}
+  </div>
+
+  {/* Search Results */}
+  {searchOpen && (
+    <div
+      style={{
+        position: "absolute",
+        top: "50px",
+        left: 0,
+        right: 0,
+        background: "#111116",
+        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: "18px",
+        overflow: "hidden",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+        zIndex: 200,
+      }}
+    >
+      {searchResults.length > 0 ? (
+        searchResults.slice(0, 5).map((product) => (
+          <div
+            key={product._id}
+            onClick={() => {
+              navigate(`/product/${product._id}`);
+              setSearch("");
+              setSearchOpen(false);
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              padding: "10px 12px",
+              cursor: "pointer",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{
+                width: "42px",
+                height: "50px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
+            />
+
+            <div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  color: "#fff",
+                }}
+              >
+                {product.name}
+              </div>
+
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#ec4899",
+                  marginTop: "3px",
+                }}
+              >
+                ₹{product.price}
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div
+          style={{
+            padding: "18px",
+            textAlign: "center",
+            fontSize: "13px",
+            color: "rgba(255,255,255,0.5)",
+          }}
+        >
+          No fits found ✨
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
+
 
         {/* Desktop Nav Links */}
         <ul

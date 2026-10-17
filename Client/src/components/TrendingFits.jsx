@@ -169,6 +169,70 @@ const toggleWishlist = async (productId) => {
     console.log(error);
   }
 };
+
+//
+const filteredProducts = products
+  .filter((product) => {
+    // Category filter
+    if (
+      activeCategory !== "All" &&
+      product.category !== activeCategory
+    ) {
+      return false;
+    }
+
+    // Price filter
+    if (priceFilter === "under1000" && product.price >= 1000) {
+      return false;
+    }
+
+    if (
+      priceFilter === "1000-2000" &&
+      (product.price < 1000 || product.price > 2000)
+    ) {
+      return false;
+    }
+
+    if (
+      priceFilter === "2000-3000" &&
+      (product.price < 2000 || product.price > 3000)
+    ) {
+      return false;
+    }
+
+    if (priceFilter === "above3000" && product.price <= 3000) {
+      return false;
+    }
+
+    // Mood filter
+    if (
+  activeMood &&
+  product.mood !== activeMood.replace(/ 🎉| 😎| 💼| 💪| ❤️| 👑/g, "")
+) {
+  return false;
+}
+
+    return true;
+  })
+  .sort((a, b) => {
+    if (sortBy === "priceLow") {
+      return a.price - b.price;
+    }
+
+    if (sortBy === "priceHigh") {
+      return b.price - a.price;
+    }
+
+    if (sortBy === "rating") {
+      return (b.rating || 0) - (a.rating || 0);
+    }
+
+    if (sortBy === "newest") {
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    }
+
+    return 0;
+  });
   
   return (
     <section
@@ -329,7 +393,41 @@ const toggleWishlist = async (productId) => {
           padding: "0 2rem",
         }}
       >
-        {products.map((product, index) => {
+
+
+        
+  {filteredProducts.length === 0 && (
+  <div
+    style={{
+      gridColumn: "1 / -1",
+      textAlign: "center",
+      padding: "80px 20px",
+      color: "rgba(255,255,255,0.5)",
+    }}
+  >
+    <div style={{ fontSize: "42px", marginBottom: "12px" }}>
+      ✨
+    </div>
+
+    <h3
+      style={{
+        color: "#fff",
+        fontSize: "22px",
+        marginBottom: "8px",
+      }}
+    >
+      No fits found
+    </h3>
+
+    <p style={{ fontSize: "14px" }}>
+      Try another category or price range.
+    </p>
+  </div>
+)}
+
+
+
+        {filteredProducts.map((product, index) => {
           const inWishlist = wishlist.includes(product._id);
           const inCart = cart.includes(product._id);
 

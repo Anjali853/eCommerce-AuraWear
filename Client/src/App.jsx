@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { useCallback, useState } from "react";
+import IntroAnimation from "./components/IntroAnimation";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import AIStylistPage from "./pages/AIStylistPage";
@@ -18,25 +20,39 @@ import WishlistPage from "./pages/WishlistPage";
 import "./App.css";
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
+const handleIntroComplete = useCallback(() => {
+  setShowIntro(false);
+}, []);
+
+
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/ai-stylist" element={<AIStylistPage />} />
-      <Route path="/mood/:moodName" element={<MoodCollectionPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      {/* <Route path="/App.css" element={<App />} /> */}
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/wishlist" element={<WishlistPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/orders" element={<MyOrders />} />
-      <Route path="/order-success" element={<OrderSuccess />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/edit-profile" element={<EditProfilePage />} />
-      <Route path="/address" element={<AddressPage />} />
-      <Route path="/product/:productId" element={<ProductDetail />} />
-    </Routes>
+    <>
+      {showIntro && (
+        <IntroAnimation onComplete={handleIntroComplete} />
+      )}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/ai-stylist" element={<AIStylistPage />} />
+        <Route path="/mood/:moodName" element={<MoodCollectionPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/orders" element={<MyOrders />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/edit-profile" element={<EditProfilePage />} />
+        <Route path="/address" element={<AddressPage />} />
+        <Route path="/product/:productId" element={<ProductDetail />} />
+      </Routes>
+    </>
   );
+
 }
 
 export default App;

@@ -275,6 +275,10 @@ const filteredProducts = products
         </p>
       </div>
 
+
+      
+      
+
       {/* Filters & Sort */}
 
 <div
